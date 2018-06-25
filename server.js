@@ -1,22 +1,25 @@
-// grab out dependencies
+// grab our dependencies
 const express = require('express'),
   app = express(),
-  port = process.env.PORT || 9090,
-  expressLayouts = require('express-ejs-layouts');
+  port = process.env.PORT || 8080,
+  expressLayouts = require('express-ejs-layouts'),
+  mongoose = require('mongoose');
 
-// configure out application
+// configure our application ===================
 // tell express where to look for static assets
 app.use(express.static(__dirname + '/public'));
 
-// set ejs as our template engine
+// set ejs as our templating engine
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
-// set the routes
+// connect to our database
+mongoose.connect('mongodb://colinlee158:158158lll@ds217671.mlab.com:17671/olympic-events');
+
+// set the routes =============================
 app.use(require('./app/routes'));
 
-// start out server
+// start our server ===========================
 app.listen(port, () => {
-  console.log(`Application is now listening on http://localhost:${port}`);
+  console.log(`App listening on http://localhost:${port}`);
 });
-
